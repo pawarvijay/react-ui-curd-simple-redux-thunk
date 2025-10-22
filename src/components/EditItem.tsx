@@ -3,21 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Button, Modal } from 'react-bootstrap';
-import { updateItem, Item } from '@/store/itemsReducer';
+import { updateItem } from "@/service/item.service";
 
-interface EditItemProps {
-    item: Item | null;
-    onClose: () => void;
-    onItemUpdated?: () => void;
-}
-
-export const EditItem: React.FC<EditItemProps> = ({
+export const EditItem = ({
     item,
     onClose,
     onItemUpdated,
 }) => {
     const dispatch = useDispatch();
-    const [formData, setFormData] = useState<Item>({
+    const [formData, setFormData] = useState({
         id: '',
         name: '',
         description: '',
@@ -30,9 +24,7 @@ export const EditItem: React.FC<EditItemProps> = ({
         }
     }, [item]);
 
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
@@ -40,10 +32,10 @@ export const EditItem: React.FC<EditItemProps> = ({
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (formData.name && formData.email) {
-            dispatch(updateItem(formData) as any);
+            dispatch(updateItem(formData.id, formData));
             onClose();
             if (onItemUpdated) {
                 onItemUpdated();

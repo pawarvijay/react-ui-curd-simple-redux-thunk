@@ -3,8 +3,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Button, Container } from 'react-bootstrap';
-import { addItem } from '@/store/itemsReducer';
-import { v4 as uuidv4 } from 'uuid';
+import { createItem } from "@/service/item.service";
 
 export const AddItem = () => {
     const dispatch = useDispatch();
@@ -25,11 +24,7 @@ export const AddItem = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (formData.name && formData.email) {
-            const newItem = {
-                id: uuidv4(),
-                ...formData,
-            };
-            dispatch(addItem(newItem));
+            dispatch(createItem(formData));
             setFormData({ name: '', description: '', email: '' });
         } else {
             alert('Please fill in all required fields');

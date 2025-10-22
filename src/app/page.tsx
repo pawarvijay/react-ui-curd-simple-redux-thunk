@@ -5,13 +5,12 @@ import { Container } from 'react-bootstrap';
 import { AddItem } from '@/components/AddItem';
 import { ItemList } from '@/components/ItemList';
 import { EditItem } from '@/components/EditItem';
-import { Item } from '@/store/itemsReducer';
 import styles from './page.module.css';
 
 export default function Home() {
-  const [editingItem, setEditingItem] = useState<Item | null>(null);
+  const [editingItem, setEditingItem] = useState(null);
 
-  const handleEditItem = (item: Item) => {
+  const handleEditItem = (item) => {
     setEditingItem(item);
   };
 
