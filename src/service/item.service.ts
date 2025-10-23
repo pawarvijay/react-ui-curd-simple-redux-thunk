@@ -16,7 +16,7 @@ export const createItem = (itemData) => async (dispatch) => {
     dispatch(createItemRequest());
     try {
         const item = await createItemAPI(itemData);
-        dispatch(createItemSuccess(item)); // corrected line
+        dispatch(createItemSuccess(item));
     } catch (error) {
         dispatch(createItemFailure(error.message));
     }

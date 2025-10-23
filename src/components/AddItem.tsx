@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Button, Container } from 'react-bootstrap';
-import { createItem } from "@/service/item.service";
+import { createItem, fetchItems } from "@/service/item.service";
 
 export const AddItem = () => {
     const dispatch = useDispatch();
@@ -21,11 +21,11 @@ export const AddItem = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.name && formData.email) {
-            dispatch(createItem(formData));
-            setFormData({ name: '', description: '', email: '' });
+            await dispatch(createItem(formData));
+            await setFormData({ name: '', description: '', email: '' });
         } else {
             alert('Please fill in all required fields');
         }
