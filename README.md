@@ -18,3 +18,17 @@
 		 - `rejected`:  `users/requestStatus/rejected`
 	- and later in actual usage it had created further complexity in reducer
 	- also added complexity in component usage
+```typescript
+const handleUpdateItem = async (values,formikHelpers) => {
+  const resultAction = await dispatch(updateItem({ id: props.itemId, ...values }));
+  if (updateItem.fulfilled.match(resultAction)) {
+    const updatedItem = resultAction.payload;
+    showNotification('success', `Item ${updatedItem.name} updated successfully`);
+  } else {
+    if (resultAction.payload) {
+      formikHelpers.setErrors(resultAction.payload.errors);
+    } else {
+      showNotification('error', `Update failed: ${resultAction.error.message}`);
+    }
+  }
+};
